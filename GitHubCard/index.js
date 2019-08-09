@@ -33,7 +33,6 @@ axios.get('https://api.github.com/users/sara-alkhamri')
 
 const followersArray = ['radelmann', 'TheeSweeney', 'vanleuvenze', 'bartonyoung', 'VijayaRamesh05'];
 
-
 followersArray.forEach(user => {
   axios.get(`https://api.github.com/users/${user}`)
     .then(response => {
@@ -81,7 +80,15 @@ function gitCards(obj) {
   userName.classList.add('username')
 
   //text content
-  
+  newImg.src = obj.avatar_url;
+  newInfo.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = obj.location;
+  profile.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`
+  bio.textContent = `Bio: ${obj.bio || "Full Stack Developer"}`;
+
   //setup structure
   newCard.appendChild(newImg)
   newCard.appendChild(cardInfo)
