@@ -4,20 +4,21 @@
 */
 axios.get('https://api.github.com/users/sara-alkhamri')
   .then((response) => {
+    cardsDev.appendChild(gitCards(response.data)) 
     console.log(response);
-    // response.data.message.forEach(item => {
-    //   let 
-    // })
-  })
+    /* Step 4: Pass the data received from Github into your function, 
+           create a new component and add it to the DOM as a child of .cards
+*/
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
+    let cardsDev = document.querySelector('.cards')
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
 
    Skip to Step 3.
-*/
-
-/* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
@@ -30,7 +31,15 @@ axios.get('https://api.github.com/users/sara-alkhamri')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['radelmann', 'TheeSweeney', 'vanleuvenze', 'bartonyoung', 'VijayaRamesh05'];
+
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      cardsDev.appendChild(gitCards(response.data))
+    }) 
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -51,9 +60,45 @@ const followersArray = [];
 </div>
 
 */
+//create cards
+function gitCards(obj) {
+  let newCard = document.createElement('div');
+  let newImg = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let newInfo = document.createElement('h3');
+  let userName = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let proLink = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p')
+  let bio = document.createElement('p');
+  
+  //create classes
+  newCard.classList.add('card')
+  cardInfo.classList.add('card-info')
+  newInfo.classList.add('name')
+  userName.classList.add('username')
+
+  //text content
+  
+  //setup structure
+  newCard.appendChild(newImg)
+  newCard.appendChild(cardInfo)
+  cardInfo.appendChild(newInfo)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(proLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
 
 
-
+  console.log(newCard)
+  return newCard;
+  
+}
 
 
 /* List of LS Instructors Github username's: 
